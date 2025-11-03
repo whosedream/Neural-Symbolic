@@ -170,7 +170,3 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 /.venv
-*.db
-*.exe
-*.pt
-*.jpg
