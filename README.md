@@ -1,12 +1,7 @@
 # NSDS: A Neural-Symbolic Data System for Geospatial Reasoning
-We propose NSDS (Neural-Symbolic Data System), a framework designed to complete complex reasoning tasks by integrating neural perception with symbolic reasoning. This project demonstrates the capabilities of NSDS through a geolocation inference experiment, which aims to infer the precise location of a real-world image containing multiple semantic entities by fusing symbolic reasoning and neural inference.
-The execution plan for NSDS includes three main components:
-1.  An image reasoning model (**YOLO**)
-2.  A large language model (e.g., **O3 / Qwen**)
-3.  A symbolic database engine (**DuckDB**)
+We propose NSDS (Neural-Symbolic Data System), a next-generation framework designed to address the limitations of current AI scaling paradigms. As amassing more data and compute becomes unsustainable, NSDS provides a new approach by efficiently fusing the powerful perceptual capabilities of neural networks with the formal, verifiable logic of symbolic systems.
 
-The overall workflow for NSDS is as follows: First, the YOLO model performs an image analysis task, detecting all salient entities in the image and their relative spatial configurations. Next, based on the detection outputs, the large language model (O3) automatically generates multiple SQL queries that formally encode the spatial relationships among the detected entities. Subsequently, these queries are executed by the database, which performs relational filtering and distance-based computation. Finally, the query results are aggregated and ranked to derive the inference outcome, completing the symbolic reasoning process.
-This architecture achieves an effective balance between computational efficiency and accuracy by automatically coupling neural perception with symbolic reasoning.
+This project introduces NSDS as a multi-agent framework that supports dynamic, recursive, and multi-stage reasoning across diverse data types and heterogeneous programming environments. It offers a natural solution for automating task decomposition, iterative refinement, and coordinated execution between the neural and symbolic components of the system.
 
 ## Framework
 ![Framework](./readme/multi_agent_framework.jpg)
