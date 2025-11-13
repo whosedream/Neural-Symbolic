@@ -7,7 +7,7 @@ def llm_chat_node(state: AgentState) -> AgentState:
     qwen = QwenWrapper()
 
     messages = [
-        {"role": "system", "content": "你是一个乐于助人的中文助手。"},
+        {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": user_text}
     ]
     chat_response = qwen.chat(messages)
@@ -20,17 +20,17 @@ def llm_chat_node(state: AgentState) -> AgentState:
 
 if __name__ == '__main__':
     test_cases = [
-        "你好，今天天气怎么样？",
-        "你是谁？",
-        "能给我讲个笑话吗？",
-        "帮我推荐几本好书。",
-        "什么是量子纠缠？"
+        "Hello, how's the weather today?"
+        "Who are you?"
+        "Can you tell me a joke?"
+        "Can you recommend some good books?"
+        "What is quantum entanglement?"
     ]
 
     for input_text in test_cases:
         case_state: AgentState = get_init_agent_state(input_text, "")
         updated_state = llm_chat_node(case_state)
-        # 输出模型回复
-        print(f"问题：{input_text}")
-        print("💬 模型回复：")
-        print(updated_state.get("chat_response", "无回复"))
+        # Output Model Response
+        print(f"question:{input_text}")
+        print("💬 Model Response:")
+        print(updated_state.get("chat_response", "no reply"))

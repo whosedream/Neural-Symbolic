@@ -52,14 +52,14 @@ def generate_sql_queries(objects: List[ObjectBox]) -> List[str]:
     :return: SQLs
     """
     sql_list = []
-    sunset_obj = next((obj for obj in objects if obj["label"] == "夕阳"), None)
+    sunset_obj = next((obj for obj in objects if obj["label"] == "sunset"), None)
     # Enumerate all possible combinations a != b
     for i in range(len(objects)):
         for j in range(i + 1, len(objects)):
             obj_a = objects[i]
             obj_b = objects[j]
 
-            if obj_a["label"] == "夕阳" or obj_b["label"] == "夕阳" or obj_a["label"] == obj_b["label"]:
+            if obj_a["label"] == "sunset" or obj_b["label"] == "sunset" or obj_a["label"] == obj_b["label"]:
                 continue  # Sunset images are for reference only and are not included in the search; images with the same label will also be skipped.
             sql = generate_spatial_sql(obj_a, obj_b, sunset_obj)
             sql_list.append(sql)
@@ -68,7 +68,7 @@ def generate_sql_queries(objects: List[ObjectBox]) -> List[str]:
 # LangGraph Node Functions
 def generate_sql_node(state: AgentState) -> AgentState:
     print("\n================================[Brain Message]=================================\n")
-    print("根据识别的实体，生成如下可能的 SQL：")
+    print("Based on the identified entities, the following possible SQL statements are generated:")
     sqls = generate_sql_queries.invoke({"objects": state["objects"] or []})
     sql_statements = (state["sql_statements"] or []) + sqls
     for i, sql in enumerate(sql_statements, 1):
@@ -80,8 +80,8 @@ def generate_sql_node(state: AgentState) -> AgentState:
 
 if __name__ == "__main__":
     test_objects = [
-        ObjectBox(label="银行", confidence=0.95, bbox=[30, 150, 130, 210]),
-        ObjectBox(label="落日", confidence=0.90, bbox=[100, 120, 150, 170]),
+        ObjectBox(label="bank", confidence=0.95, bbox=[30, 150, 130, 210]),
+        ObjectBox(label="sunset", confidence=0.90, bbox=[100, 120, 150, 170]),
     ]
     res = generate_sql_queries.invoke({"objects": test_objects})
     for i, sql in enumerate(res, 1):

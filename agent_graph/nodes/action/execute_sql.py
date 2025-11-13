@@ -38,15 +38,15 @@ def execute_sql_node(state: AgentState) -> AgentState:
     sql = state.get("current_sql")
     index = str(state.get("current_index"))
     if not sql:
-        print("没有可以执行的SQL")
+        print("No executable SQL")
         return state
     print("\n================================[Action Message]================================\n")
-    print(f"执行 SQL[{index}]: {sql}")
+    print(f"execute SQL[{index}]: {sql}")
     result = execute_sql_query.invoke(sql)
     if len(result) == 0:
-        print(f"执行结果: []\n")
+        print(f"Execution result: []\n")
     else:
-        print(f"执行结果: \n")
+        print(f"Execution result: \n")
         print("[")
         for row in result:
             print(f"\t{row}")
@@ -60,6 +60,6 @@ def execute_sql_node(state: AgentState) -> AgentState:
 
 
 if __name__ == '__main__':
-    sql_statements =  "SELECT * FROM bank WHERE name LIKE '%落日%';"
+    sql_statements =  "SELECT * FROM bank WHERE name LIKE '%sunset%';"
     ans = execute_sql_query.invoke(sql_statements)
     print(ans)

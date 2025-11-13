@@ -7,7 +7,7 @@ from ultralytics import YOLO
 from agent_graph.state_schema import AgentState, ObjectBox
 from common.config_loader import load_config
 
-# 缓存模型（加载一次）
+# Caching model (loaded once)
 _yolo_model = None
 
 def get_yolo_model() -> YOLO:
@@ -17,7 +17,7 @@ def get_yolo_model() -> YOLO:
         project_root = Path(__file__).resolve().parents[3]
         model_path = (project_root / config['yolo']['model_path']).resolve()
         if not model_path.exists():
-            raise FileNotFoundError(f"未找到 YOLO 模型文件：{model_path}")
+            raise FileNotFoundError(f"YOLO model file not found:{model_path}")
         _yolo_model = YOLO(str(model_path))
     return _yolo_model
 
@@ -25,12 +25,12 @@ def get_yolo_model() -> YOLO:
 @tool
 def detect_objects(image_path: str) -> List[ObjectBox]:
     """
-    使用YOLOv8模型检测图像中的物体，返回每个物体的标签、置信度和边界框。
+    Use the YOLOv8 model to detect objects in an image and return the label, confidence score, and bounding box for each object.
     """
     model = get_yolo_model()
-    # 加载图片
+    # Load image
     image = Image.open(image_path)
-    # 执行检测
+    # Perform detection
     results = model(image)
     boxes = results[0].boxes
     cls_names = results[0].names
@@ -52,23 +52,23 @@ def detect_objects(image_path: str) -> List[ObjectBox]:
         })
     return detected_objects
 
-# LangGraph 节点函数
+# LangGraph Node Functions
 def detect_node(state: AgentState) -> AgentState:
     if not state.get("image_path"):
-        raise ValueError("image_path 未提供，无法执行检测")
+        raise ValueError("image_path not provided, unable to perform detection")
     print("\n=============================[Perception Message]===============================\n")
-    print(f"正在识别图像:{state.get('image_path')}")
+    print(f"Identifying image:{state.get('image_path')}")
     objects = detect_objects.invoke(state["image_path"])
-    print("检查到如下物体：")
+    print("The following objects were detected:")
     for i, obj in enumerate(objects, 1):
-        print(f"[{i}] 类别: {obj.get('label')} | 置信度: {obj.get('confidence'):.2f} | 位置: {obj.get('bbox')}")
+        print(f"[{i}] Category: {obj.get('label')} | Confidence: {obj.get('confidence'):.2f} | Location: {obj.get('bbox')}")
     new_state = state.copy()
     new_state["objects"] = objects
     return new_state
 
 if __name__ == '__main__':
-    path = "D:\\User\\zhangruipeng\\PycharmProjects\\PBAgent\\data\\test1.jpg"
+    path = "C:\\Users\\lenovo\\Downloads\\Agent-master\\data\\test1.jpg"
     res = detect_objects.invoke(path)
-    print("检测到的物体列表:")
+    print("List of detected objects:")
     for i, obj in enumerate(res, 1):
-        print(f"[{i}] 类别: {obj.get('label')} | 置信度: {obj.get('confidence'):.2f} | 位置: {obj.get('bbox')}")
+        print(f"[{i}] Category: {obj.get('label')} | Confidence: {obj.get('confidence'):.2f} | Location: {obj.get('bbox')}")

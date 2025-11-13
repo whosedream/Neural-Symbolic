@@ -4,7 +4,7 @@ We propose NSDS (Neural-Symbolic Data System), a next-generation framework desig
 This project introduces NSDS as a multi-agent framework that supports dynamic, recursive, and multi-stage reasoning across diverse data types and heterogeneous programming environments. It offers a natural solution for automating task decomposition, iterative refinement, and coordinated execution between the neural and symbolic components of the system.
 
 ## Framework
-![Framework](./readme/multi_agent_framework.jpg)
+![Framework](assets/multi_agent_framework.jpg)
 ## Project Structure
 ```text
         Neural-Symbolic-master/

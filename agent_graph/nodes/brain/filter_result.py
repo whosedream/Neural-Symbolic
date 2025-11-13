@@ -25,15 +25,15 @@ def filter_result_node(state: AgentState) -> AgentState:
     Filter out SQL queries that returned empty results and combine only those with valid results.
     """
     print("\n================================[Brain Message]=================================\n")
-    print("根据执行的SQL和查询结果，汇总有效结果：")
+    print("Based on the executed SQL and query results, summarize the valid results:")
     results = filter_results.invoke({
         "sql_statements": state["sql_statements"],
         "query_results": state["query_results"]
     })
 
     for i, res in enumerate(results, 1):
-        print(f"\n有效SQL: {res.get('sql')}")
-        print(f"执行结果：")
+        print(f"\nValid SQL: {res.get('sql')}")
+        print(f"Execution result:")
         result = res.get("result")
         print("[")
         for row in result:
@@ -42,7 +42,7 @@ def filter_result_node(state: AgentState) -> AgentState:
     new_state = state.copy()
     new_state["filter_results"] = results
 
-    print("\n根据置信度，这张图片最有可能拍摄于一下地点之一：")
+    print("\nBased on the confidence level, this image was most likely taken from one of the following locations:")
     for i, res in enumerate(results, 1):
         result = res.get("result")
         # print("[")

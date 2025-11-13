@@ -32,16 +32,16 @@ class QwenWrapper:
             ):
                 return resp.output["choices"][0]["message"]["content"]
             else:
-                return "【无有效回复】"
+                return "[No valid response]"
         except Exception as e:
-            return f"【调用异常】{str(e)}"
+            return f"[Invocation exception]{str(e)}"
 
 
 if __name__ == '__main__':
     qwen = QwenWrapper()
     messages = [
         {'role': 'system', 'content': 'You are a helpful assistant.'},
-        {'role': 'user', 'content': '你是谁？'}
+        {'role': 'user', 'content': 'Who are you?'}
     ]
     response = qwen.chat(messages)
     print(response)
