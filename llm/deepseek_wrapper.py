@@ -11,7 +11,7 @@ class DeepSeekWrapper:
         It is recommended to configure authentication information via the DEEPSEEK_API_KEY environment variable.
         """
         # Temporarily hardcoded key for quick local testing. Please switch back to environment variable reading before going live or submitting code.
-        self.api_key = os.getenv("DEEPSEEK_API_KEY", "") or "sk-d942e96902514cc88890d51e1504ec34"
+        self.api_key = os.getenv("DEEPSEEK_API_KEY", "") or "xxx-xxx"
         self.base_url = "https://api.deepseek.com/v1/chat/completions"
         self.model = "deepseek-chat"
         self.headers = {
