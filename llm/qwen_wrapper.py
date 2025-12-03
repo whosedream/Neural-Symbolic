@@ -3,7 +3,7 @@ from typing import List        # Data type, List
 
 class QwenWrapper:
     def __init__(self):          # Initialize Qwen interface, set API key, Base URL, model, and headers
-        self.api_key = "sk-bcabe4992cb94e8f896126cef8ee8dea"
+        self.api_key = "xx-xxxx"
         self.base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1/"
         self.model = "qwen2.5-72b-instruct"
         self.headers = {
